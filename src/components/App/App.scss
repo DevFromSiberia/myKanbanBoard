@@ -25,7 +25,8 @@
       display: flex;
       align-items: center;
       cursor: pointer;
-      .avatar {
+      position: relative;
+      &__avatar {
         width: 40px;
         height: 40px;
         margin-right: 6px;
@@ -34,10 +35,57 @@
           border-radius: 50%;
         }
       }
+
+      &__arrow {
+        transform: rotate(180deg);
+        &-active {
+          transform: rotate(0deg);
+        }
+      }
+
+      &__menu {
+        &-active {
+          display: block;
+        }
+        box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.5);
+
+        display: none;
+
+        position: absolute;
+        width: 135px;
+        top: 50px;
+        right: 0;
+        z-index: 1;
+        background-color: #ffffff;
+        border-radius: 5px;
+        padding: 7px;
+
+        a {
+          display: block;
+          font-family: 'Roboto-Regular';
+          font-size: 14px;
+          color: $secondText-color;
+          transition: color ease-in-out 0.2s;
+          &:first-child {
+            margin-bottom: 11px;
+          }
+          &:hover {
+            color: $secondText-color-hover;
+            transition: color ease-in-out 0.2s;
+          }
+        }
+      }
+    }
+
+    @media (max-width: 460px) {
+      .title {
+        font-size: 20px;
+      }
     }
   }
 
   .kanbanBoard {
+    display: flex;
     flex-grow: 1;
     padding: 20px;
     &__sections {
@@ -119,6 +167,52 @@
         }
       }
     }
+
+    &__details {
+      background-color: #fff;
+      padding: 28px 22px;
+      width: 100%;
+      border-radius: 5px;
+
+      position: relative;
+
+      .title {
+        font-family: 'Roboto-Regular';
+        font-size: 24px;
+        color: $secondText-color;
+        max-width: 620px;
+        margin-bottom: 35px;
+      }
+
+      .description {
+        font-family: 'Roboto-Regular';
+        font-size: 18px;
+        color: $secondText-color;
+        max-width: 620px;
+      }
+
+      svg {
+        position: absolute;
+        top: 28px;
+        right: 22px;
+        cursor: pointer;
+      }
+    }
+
+    @media (max-width: 1000px) {
+      & {
+        margin: 0 auto;
+      }
+      &__sections {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 700px) {
+      &__sections {
+        grid-template-columns: repeat(1, 1fr);
+      }
+    }
   }
 
   .footer {
@@ -142,6 +236,43 @@
       &:last-child {
         max-width: 100%;
         text-align: end;
+      }
+    }
+    @media (max-width: 700px) {
+      & {
+        align-items: start;
+      }
+      &__item {
+        font-size: 14px;
+        &:first-child {
+          margin-right: 15px;
+        }
+      }
+    }
+
+    @media (max-width: 500px) {
+      &__item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        span {
+          margin-top: 5px;
+        }
+      }
+    }
+
+    @media (max-width: 390px) {
+      & {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      &__item {
+        margin-top: 10px;
+        &:first-child {
+          margin-right: 0;
+          margin-top: 0;
+        }
       }
     }
   }
