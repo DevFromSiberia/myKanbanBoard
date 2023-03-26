@@ -1,10 +1,11 @@
 interface task {
-  id: string
+  id: number
   title: string
   descr: string
 }
 
 interface data {
+  [mode: string]: task[]
   backlog: task[]
   ready: task[]
   progress: task[]

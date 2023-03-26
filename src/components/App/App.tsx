@@ -1,40 +1,25 @@
-import React, { EventHandler } from 'react'
+import { useState, useEffect } from 'react'
 import userAva from '../../assets/img/userAva.png'
 import { Section } from '../Section/Section'
-
-import { data } from '../types'
+import { getData, setData, dataCount } from '../../utils/data'
+import { task } from '../../types'
 
 function App() {
-  const dataMock: data = {
-    backlog: [
-      {
-        id: '0',
-        title: 'Hello backlog',
-        descr: 'Write Hello World',
-      },
-    ],
-    ready: [
-      {
-        id: '0',
-        title: 'Hello ready',
-        descr: 'Write Hello World',
-      },
-    ],
-    progress: [
-      {
-        id: '0',
-        title: 'Hello progress',
-        descr: 'Write Hello World',
-      },
-    ],
-    finish: [
-      {
-        id: '0',
-        title: 'Hello finish',
-        descr: 'Write Hello World',
-      },
-    ],
+  const [appData, setAppData] = useState(getData())
+  const [countTasks, setcountTasks] = useState(dataCount())
+
+  const updateData = (task: task, mode: string) => {
+    const curSection: task[] = appData[mode]
+    curSection.push(task)
+    setData(appData)
+    setAppData(getData())
   }
+
+  // Change of tasks count
+  useEffect(() => {
+    setcountTasks(dataCount())
+    console.log(countTasks)
+  }, [appData])
 
   return (
     <div className="App">
@@ -66,24 +51,36 @@ function App() {
       <main className="kanbanBoard">
         <div className="kanbanBoard__sections">
           <Section
+            countTasks={countTasks}
             title={'Backlog'}
-            tasks={dataMock.backlog}
+            tasks={appData.backlog}
             abilityAddTask={true}
+            mode={'backlog'}
+            updateData={updateData}
           />
           <Section
+            countTasks={countTasks}
             title={'Ready'}
-            tasks={dataMock.ready}
-            abilityAddTask={!!+dataMock.backlog.length}
+            tasks={appData.ready}
+            abilityAddTask={!!+appData.backlog.length}
+            mode={'ready'}
+            updateData={updateData}
           />
           <Section
+            countTasks={countTasks}
             title={'In Progress'}
-            tasks={dataMock.progress}
-            abilityAddTask={!!+dataMock.ready.length}
+            tasks={appData.progress}
+            abilityAddTask={!!+appData.ready.length}
+            mode={'progress'}
+            updateData={updateData}
           />
           <Section
+            countTasks={countTasks}
             title={'Finished'}
-            tasks={dataMock.finish}
-            abilityAddTask={!!+dataMock.progress.length}
+            tasks={appData.finish}
+            abilityAddTask={!!+appData.progress.length}
+            mode={'finish'}
+            updateData={updateData}
           />
         </div>
         {/* <div className="kanbanBoard__details">
@@ -114,7 +111,7 @@ function App() {
       </main>
       <footer className="footer">
         <div className="footer__item">
-          Active tasks: <span>N</span>
+          Active tasks: <span>{countTasks}</span>
         </div>
         <div className="footer__item">
           Finished tasks: <span>M</span>

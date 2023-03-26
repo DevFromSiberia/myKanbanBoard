@@ -1,0 +1,21 @@
+.customSelect {
+  position: relative;
+  background-color: $taskBg-color;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  background-color: $taskBg-color;
+  padding: 8px;
+  font-family: 'Roboto-Regular';
+  font-size: 18px;
+  color: $secondText-color;
+  border-radius: 5px;
+  margin-bottom: 15px;
+  .customSelect__active {
+  }
+  .customSelect__options {
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+}
