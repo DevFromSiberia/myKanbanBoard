@@ -6,7 +6,7 @@ import { task } from '../../types'
 
 function App() {
   const [appData, setAppData] = useState(getData())
-  const [countTasks, setcountTasks] = useState(dataCount())
+  const [countTasks, setCountTasks] = useState(dataCount())
 
   const updateData = (task: task, mode: string) => {
     const curSection: task[] = appData[mode]
@@ -17,8 +17,7 @@ function App() {
 
   // Change of tasks count
   useEffect(() => {
-    setcountTasks(dataCount())
-    console.log(countTasks)
+    setCountTasks(dataCount())
   }, [appData])
 
   return (
@@ -54,6 +53,7 @@ function App() {
             countTasks={countTasks}
             title={'Backlog'}
             tasks={appData.backlog}
+            prevTasks={[]}
             abilityAddTask={true}
             mode={'backlog'}
             updateData={updateData}
@@ -62,6 +62,7 @@ function App() {
             countTasks={countTasks}
             title={'Ready'}
             tasks={appData.ready}
+            prevTasks={appData.backlog}
             abilityAddTask={!!+appData.backlog.length}
             mode={'ready'}
             updateData={updateData}
@@ -70,6 +71,7 @@ function App() {
             countTasks={countTasks}
             title={'In Progress'}
             tasks={appData.progress}
+            prevTasks={appData.ready}
             abilityAddTask={!!+appData.ready.length}
             mode={'progress'}
             updateData={updateData}
@@ -78,6 +80,7 @@ function App() {
             countTasks={countTasks}
             title={'Finished'}
             tasks={appData.finish}
+            prevTasks={appData.progress}
             abilityAddTask={!!+appData.progress.length}
             mode={'finish'}
             updateData={updateData}

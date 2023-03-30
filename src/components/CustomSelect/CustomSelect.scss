@@ -1,21 +1,55 @@
 .customSelect {
-  position: relative;
-  background-color: $taskBg-color;
-  cursor: pointer;
-  display: flex;
-  justify-content: space-between;
-  background-color: $taskBg-color;
-  padding: 8px;
-  font-family: 'Roboto-Regular';
-  font-size: 18px;
-  color: $secondText-color;
-  border-radius: 5px;
-  margin-bottom: 15px;
-  .customSelect__active {
-  }
-  .customSelect__options {
-    position: absolute;
-    top: 0;
-    left: 0;
+  overflow-y: hidden;
+  transition: height ease-in-out 0.2s;
+  .wrapper {
+    position: relative;
+    .customSelect__active {
+      position: relative;
+      cursor: pointer;
+      z-index: 1;
+      display: flex;
+      background-color: $taskBg-color;
+      padding: 8px;
+      border-radius: 5px;
+      height: 38px;
+      p {
+        flex-grow: 1;
+        margin-left: 30px;
+        font-family: 'Roboto-Regular';
+        font-size: 18px;
+        color: $secondText-color;
+      }
+      svg {
+        margin-right: 10px;
+        transition: transform ease-in-out 0.2s;
+      }
+    }
+    .customSelect__options {
+      z-index: 0;
+      margin-top: 5px;
+      .customSelect__option {
+        padding: 8px;
+
+        background-color: $taskBg-color;
+        display: flex;
+        font-family: 'Roboto-Regular';
+        font-size: 18px;
+        color: $secondText-color;
+        cursor: pointer;
+        transition: background-color ease-in-out 0.2s;
+        &:hover {
+          background-color: #dedede;
+          transition: background-color ease-in-out 0.2s;
+        }
+        &:first-child {
+          border-top-left-radius: 5px;
+          border-top-right-radius: 5px;
+        }
+        &:last-child {
+          border-bottom-left-radius: 5px;
+          border-bottom-right-radius: 5px;
+        }
+      }
+    }
   }
 }

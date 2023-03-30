@@ -24,7 +24,7 @@ function setData(data: data) {
   localStorage.setItem('data', jsonData)
 }
 
-function dataCount() {
+function dataCount(): number {
   let counter: number = 0
   const curData: any = getData()
 

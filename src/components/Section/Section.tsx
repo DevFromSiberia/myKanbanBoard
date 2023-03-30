@@ -9,11 +9,13 @@ interface Props {
   tasks: task[]
   mode: string
   updateData: Function
+  prevTasks: task[]
 }
 
 function Section({
   countTasks,
   tasks,
+  prevTasks,
   title,
   abilityAddTask,
   mode,
@@ -68,7 +70,7 @@ function Section({
             autoFocus
           />
         ) : stateSection === 2 ? (
-          <CustomSelect />
+          <CustomSelect tasks={prevTasks} /> //onChoice={(choice) => setStateInput(choice)}
         ) : (
           ''
         )}
