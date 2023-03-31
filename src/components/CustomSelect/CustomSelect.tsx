@@ -1,12 +1,18 @@
-import { useState, useRef, useLayoutEffect } from 'react'
+import { useState, useRef, useLayoutEffect, useEffect } from 'react'
 import { task } from '../../types'
 
 interface Props {
   tasks: task[]
+  onChoice: Function
 }
 
-function CustomSelect({ tasks }: Props) {
+function CustomSelect({ tasks, onChoice }: Props) {
   const [expand, setExpand] = useState(false)
+  const [activeChoice, setActiveChoice] = useState('')
+
+  useEffect(() => {
+    onChoice(activeChoice)
+  }, [activeChoice])
 
   const refCustomSelect = useRef(null)
   const refCustomSelectActive = useRef(null)
@@ -39,7 +45,7 @@ function CustomSelect({ tasks }: Props) {
     >
       <div ref={refCustomSelect} className="wrapper">
         <div ref={refCustomSelectActive} className="customSelect__active">
-          <p></p>
+          <p>{activeChoice}</p>
           <svg
             style={styleArrow}
             width="23"
@@ -56,7 +62,13 @@ function CustomSelect({ tasks }: Props) {
         </div>
         <div className="customSelect__options">
           {tasks.map((task) => (
-            <div key={task.id} className="customSelect__option">
+            <div
+              key={task.id}
+              onClick={() => {
+                setActiveChoice(task.title)
+              }}
+              className="customSelect__option"
+            >
               {task.title}
             </div>
           ))}

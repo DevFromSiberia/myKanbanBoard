@@ -1,16 +1,27 @@
 import { useState, useEffect } from 'react'
-import userAva from '../../assets/img/userAva.png'
 import { Section } from '../Section/Section'
-import { getData, setData, dataCount } from '../../utils/data'
+import { getData, setData, dataCount, finishCount } from '../../utils/data'
 import { task } from '../../types'
+import { UserBlock } from '../UserBlock/UserBlock'
 
 function App() {
   const [appData, setAppData] = useState(getData())
-  const [countTasks, setCountTasks] = useState(dataCount())
+  const [countTasks, setCountTasks] = useState(dataCount()) // total tasks
+  const [countTasksFinish, setCountTasksFinish] = useState(finishCount()) // finish tasks
 
-  const updateData = (task: task, mode: string) => {
+  const addTask = (task: task, mode: string) => {
     const curSection: task[] = appData[mode]
     curSection.push(task)
+    setData(appData)
+    setAppData(getData())
+  }
+
+  const removeTask = (task: task, mode: string) => {
+    const curSection: task[] = appData[mode]
+    curSection.forEach(
+      (removedTask, index) =>
+        task.id === removedTask.id && curSection.splice(index, 1)
+    )
     setData(appData)
     setAppData(getData())
   }
@@ -18,34 +29,14 @@ function App() {
   // Change of tasks count
   useEffect(() => {
     setCountTasks(dataCount())
+    setCountTasksFinish(finishCount())
   }, [appData])
 
   return (
     <div className="App">
       <header className="header">
         <h1 className="title">Awesome Kanban Board</h1>
-        <div className="userBlock">
-          <div className="userBlock__avatar">
-            <img src={userAva} alt="avatar" />
-          </div>
-          <svg
-            className="userBlock__arrow"
-            width="12"
-            height="8"
-            viewBox="0 0 12 8"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M1.415 0.210022L6 4.79502L10.585 0.210022L12 1.62502L6 7.62502L0 1.62502L1.415 0.210022Z"
-              fill="white"
-            />
-          </svg>
-          <div className="userBlock__menu">
-            <a href="#">Profile</a>
-            <a href="#">Log Out</a>
-          </div>
-        </div>
+        <UserBlock />
       </header>
       <main className="kanbanBoard">
         <div className="kanbanBoard__sections">
@@ -56,7 +47,9 @@ function App() {
             prevTasks={[]}
             abilityAddTask={true}
             mode={'backlog'}
-            updateData={updateData}
+            prevMode={''}
+            addTask={addTask}
+            removeTask={removeTask}
           />
           <Section
             countTasks={countTasks}
@@ -65,7 +58,9 @@ function App() {
             prevTasks={appData.backlog}
             abilityAddTask={!!+appData.backlog.length}
             mode={'ready'}
-            updateData={updateData}
+            prevMode={'backlog'}
+            addTask={addTask}
+            removeTask={removeTask}
           />
           <Section
             countTasks={countTasks}
@@ -74,7 +69,9 @@ function App() {
             prevTasks={appData.ready}
             abilityAddTask={!!+appData.ready.length}
             mode={'progress'}
-            updateData={updateData}
+            prevMode={'ready'}
+            addTask={addTask}
+            removeTask={removeTask}
           />
           <Section
             countTasks={countTasks}
@@ -83,7 +80,9 @@ function App() {
             prevTasks={appData.progress}
             abilityAddTask={!!+appData.progress.length}
             mode={'finish'}
-            updateData={updateData}
+            prevMode={'progress'}
+            addTask={addTask}
+            removeTask={removeTask}
           />
         </div>
         {/* <div className="kanbanBoard__details">
@@ -117,7 +116,7 @@ function App() {
           Active tasks: <span>{countTasks}</span>
         </div>
         <div className="footer__item">
-          Finished tasks: <span>M</span>
+          Finished tasks: <span>{countTasksFinish}</span>
         </div>
         <div className="footer__item">
           Kanban board by <span>Name,</span> <span>Year</span>

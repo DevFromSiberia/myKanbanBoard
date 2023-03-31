@@ -8,7 +8,9 @@ interface Props {
   title: string
   tasks: task[]
   mode: string
-  updateData: Function
+  prevMode: string
+  addTask: Function
+  removeTask: Function
   prevTasks: task[]
 }
 
@@ -19,7 +21,9 @@ function Section({
   title,
   abilityAddTask,
   mode,
-  updateData,
+  prevMode,
+  addTask,
+  removeTask,
 }: Props) {
   const [stateSection, setStateSection] = useState(0) //1-input, 2-select
   const [stateInput, setStateInput] = useState('')
@@ -38,13 +42,23 @@ function Section({
   }
 
   const onClickSubmitBtn = () => {
-    const result: task = {
-      id: countTasks,
-      title: stateInput,
-      descr: '',
+    if (mode === 'backlog') {
+      const result: task = {
+        id: countTasks,
+        title: stateInput,
+        descr: '',
+      }
+      addTask(result, mode)
+      onClickCancelBtn()
+    } else {
+      prevTasks.forEach((task) => {
+        if (task.title === stateInput) {
+          addTask(task, mode)
+          removeTask(task, prevMode)
+        }
+      })
+      onClickCancelBtn()
     }
-    updateData(result, mode)
-    onClickCancelBtn()
   }
 
   const onClickCancelBtn = () => {
@@ -70,7 +84,12 @@ function Section({
             autoFocus
           />
         ) : stateSection === 2 ? (
-          <CustomSelect tasks={prevTasks} /> //onChoice={(choice) => setStateInput(choice)}
+          <CustomSelect
+            tasks={prevTasks}
+            onChoice={(choice: string) => {
+              setStateInput(choice)
+            }}
+          />
         ) : (
           ''
         )}

@@ -29,13 +29,23 @@ function dataCount(): number {
   const curData: any = getData()
 
   for (let key in curData) {
-    counter += +curData[key].length
+    if (key !== 'finish') {
+      counter += +curData[key].length
+    }
   }
+  return counter
+}
+
+function finishCount(): number {
+  let counter: number = 0
+  const curData: any = getData()
+
+  counter += +curData['finish'].length
 
   return counter
 }
 
-export { storageInit, getData, setData, dataCount }
+export { storageInit, getData, setData, dataCount, finishCount }
 /*{
       id: '0',
       title: 'Hello finish',
