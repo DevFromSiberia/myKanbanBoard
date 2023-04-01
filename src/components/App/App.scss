@@ -35,47 +35,10 @@
     display: flex;
     flex-grow: 1;
     padding: 20px;
-    &__sections {
-      width: 100%;
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 24px;
 
-      margin: 0 auto;
-    }
-
+    @import '../../pages/Sections/Sections.scss';
     @import '../Section/Section.scss';
-
-    &__details {
-      background-color: #fff;
-      padding: 28px 22px;
-      width: 100%;
-      border-radius: 5px;
-
-      position: relative;
-
-      .title {
-        font-family: 'Roboto-Regular';
-        font-size: 24px;
-        color: $secondText-color;
-        max-width: 620px;
-        margin-bottom: 35px;
-      }
-
-      .description {
-        font-family: 'Roboto-Regular';
-        font-size: 18px;
-        color: $secondText-color;
-        max-width: 620px;
-      }
-
-      svg {
-        position: absolute;
-        top: 28px;
-        right: 22px;
-        cursor: pointer;
-      }
-    }
+    @import '../../pages/Details/Details.scss';
 
     @media (max-width: 1000px) {
       &__sections {

@@ -1,8 +1,9 @@
 import { useState, useEffect } from 'react'
-import { Section } from '../Section/Section'
+import { Sections } from '../../pages/Sections/Sections'
+import { Details } from '../../pages/Details/Details'
 import { getData, setData, dataCount, finishCount } from '../../utils/data'
-import { task } from '../../types'
 import { UserBlock } from '../UserBlock/UserBlock'
+import { task } from '../../types'
 
 function App() {
   const [appData, setAppData] = useState(getData())
@@ -39,77 +40,14 @@ function App() {
         <UserBlock />
       </header>
       <main className="kanbanBoard">
-        <div className="kanbanBoard__sections">
-          <Section
-            countTasks={countTasks}
-            title={'Backlog'}
-            tasks={appData.backlog}
-            prevTasks={[]}
-            abilityAddTask={true}
-            mode={'backlog'}
-            prevMode={''}
-            addTask={addTask}
-            removeTask={removeTask}
-          />
-          <Section
-            countTasks={countTasks}
-            title={'Ready'}
-            tasks={appData.ready}
-            prevTasks={appData.backlog}
-            abilityAddTask={!!+appData.backlog.length}
-            mode={'ready'}
-            prevMode={'backlog'}
-            addTask={addTask}
-            removeTask={removeTask}
-          />
-          <Section
-            countTasks={countTasks}
-            title={'In Progress'}
-            tasks={appData.progress}
-            prevTasks={appData.ready}
-            abilityAddTask={!!+appData.ready.length}
-            mode={'progress'}
-            prevMode={'ready'}
-            addTask={addTask}
-            removeTask={removeTask}
-          />
-          <Section
-            countTasks={countTasks}
-            title={'Finished'}
-            tasks={appData.finish}
-            prevTasks={appData.progress}
-            abilityAddTask={!!+appData.progress.length}
-            mode={'finish'}
-            prevMode={'progress'}
-            addTask={addTask}
-            removeTask={removeTask}
-          />
-        </div>
-        {/* <div className="kanbanBoard__details">
-          <h2 className="title">Main page – performance issues</h2>
-          <p className="description">
-            Это был темный лес, издали казавшийся непроходимым. Там Пахапиль
-            охотился, глушил рыбу, спал на еловых ветках. Короче – жил, пока
-            русские не выгнали оккупантов. А когда немцы ушли, Пахапиль
-            вернулся. Он появился в Раквере, где советский капитан наградил его
-            медалью. Медаль была украшена четырьмя непонятными словами, фигурой
-            и восклицательным знаком.
-          </p>
-          <svg
-            width="23"
-            height="23"
-            viewBox="0 0 23 23"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M22.4286 22.4286L1 1M22.4286 1L1 22.4286"
-              stroke="black"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-          </svg>
-        </div> */}
+        <Sections
+          appData={appData}
+          countTasks={countTasks}
+          addTask={addTask}
+          removeTask={removeTask}
+        />
+
+        {/* <Details /> */}
       </main>
       <footer className="footer">
         <div className="footer__item">

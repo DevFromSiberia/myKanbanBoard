@@ -25,6 +25,14 @@
       color: $secondText-color;
       border-radius: 5px;
       margin-bottom: 15px;
+
+      cursor: pointer;
+      transition: background-color ease-in-out 0.1s;
+
+      &:hover {
+        transition: background-color ease-in-out 0.1s;
+        background-color: #5e6c8425;
+      }
     }
 
     &::-webkit-scrollbar {
@@ -86,6 +94,7 @@
         }
       }
       &:hover {
+        background-color: transparent;
         color: $addBtn-color-disabled;
         svg {
           path {
