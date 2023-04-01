@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react'
+import { Link } from 'react-router-dom'
 import { task } from '../../types'
+import { generateId } from '../../data/data'
 import { CustomSelect } from '../CustomSelect/CustomSelect'
 
 interface Props {
@@ -42,9 +44,10 @@ function Section({
   }
 
   const onClickSubmitBtn = () => {
+    const id = generateId()
     if (mode === 'backlog') {
       const result: task = {
-        id: countTasks,
+        id: id,
         title: stateInput,
         descr: '',
       }
@@ -71,15 +74,19 @@ function Section({
       <div className="title">{title}</div>
       <div className="tasks">
         {tasks.map((task) => (
-          <div key={task.id} className="task">
+          <Link
+            to={`details/${mode}/${task.id}`}
+            key={task.id}
+            className="task"
+          >
             {task.title}
-          </div>
+          </Link>
         ))}
 
         {stateSection === 1 ? (
           <input
             onChange={(e) => setStateInput(e.target.value)}
-            className="task"
+            className="inputTask"
             type="text"
             autoFocus
           />

@@ -1,9 +1,11 @@
 import { useState, useEffect } from 'react'
+import { createBrowserRouter, RouterProvider } from 'react-router-dom'
+
 import { Sections } from '../../pages/Sections/Sections'
 import { Details } from '../../pages/Details/Details'
-import { getData, setData, dataCount, finishCount } from '../../utils/data'
+import { getData, setData, dataCount, finishCount } from '../../data/data'
 import { UserBlock } from '../UserBlock/UserBlock'
-import { task } from '../../types'
+import { task, data } from '../../types'
 
 function App() {
   const [appData, setAppData] = useState(getData())
@@ -33,6 +35,34 @@ function App() {
     setCountTasksFinish(finishCount())
   }, [appData])
 
+  const router = createBrowserRouter([
+    {
+      path: '/',
+      element: (
+        <Sections
+          appData={appData}
+          countTasks={countTasks}
+          addTask={addTask}
+          removeTask={removeTask}
+        />
+      ),
+    },
+    {
+      path: 'details/:mode/:id',
+      element: <Details />,
+      loader: ({ params }) => {
+        const data: data = getData()
+        const id: string | undefined = params.id
+        const mode: string | undefined = params.mode
+        const res = mode && data[mode].find((task) => task.id === Number(id))
+        return {
+          task: res,
+          mode: mode,
+        }
+      },
+    },
+  ])
+
   return (
     <div className="App">
       <header className="header">
@@ -40,14 +70,7 @@ function App() {
         <UserBlock />
       </header>
       <main className="kanbanBoard">
-        <Sections
-          appData={appData}
-          countTasks={countTasks}
-          addTask={addTask}
-          removeTask={removeTask}
-        />
-
-        {/* <Details /> */}
+        <RouterProvider router={router} />
       </main>
       <footer className="footer">
         <div className="footer__item">

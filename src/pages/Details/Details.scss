@@ -8,6 +8,7 @@
 
   .title {
     font-family: 'Roboto-Regular';
+    font-weight: 700;
     font-size: 24px;
     color: $secondText-color;
     max-width: 620px;
@@ -20,11 +21,96 @@
     color: $secondText-color;
     max-width: 620px;
   }
+  .editField {
+    border: 1px solid $mainBg-color;
+    width: 100%;
+    height: 600px;
+    resize: none;
+    padding: 20px;
 
-  svg {
+    font-family: 'Roboto-Regular';
+    font-size: 18px;
+    color: $secondText-color;
+
+    &:active {
+      border: 3px solid $mainBg-color;
+    }
+    &:focus {
+      border: 3px solid $mainBg-color;
+    }
+    outline: none;
+  }
+  .buttonBlock {
     position: absolute;
     top: 28px;
     right: 22px;
-    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 200px;
+    .closeBtn {
+      display: block;
+      height: 23px;
+      cursor: pointer;
+      transition: transform ease-in-out 0.2s;
+      &:hover {
+        transform: rotate(180deg);
+        transition: transform ease-in-out 0.2s;
+      }
+    }
+
+    .editBtn {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background-color: $mainBg-color;
+      padding: 5px 10px;
+      border-radius: 6px;
+      transition: background-color ease-in-out 0.2s;
+
+      p {
+        font-family: 'Roboto-Regular';
+        font-size: 18px;
+        color: #fff;
+        transition: color ease-in-out 0.1s;
+        margin-right: 10px;
+      }
+      svg {
+        path {
+          fill: #fff;
+        }
+      }
+      &:hover {
+        background-color: $secondBg-color;
+        transition: background-color ease-in-out 0.2s;
+      }
+    }
+
+    .cancelBtn {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background-color: rgb(207, 22, 22);
+      padding: 5px 10px;
+      border-radius: 6px;
+      transition: background-color ease-in-out 0.2s;
+
+      p {
+        font-family: 'Roboto-Regular';
+        font-size: 18px;
+        color: #fff;
+        transition: color ease-in-out 0.1s;
+        margin-right: 10px;
+      }
+      svg {
+        path {
+          fill: #fff;
+        }
+      }
+      &:hover {
+        background-color: rgb(255, 0, 0);
+        transition: background-color ease-in-out 0.2s;
+      }
+    }
   }
 }

@@ -45,7 +45,17 @@ function finishCount(): number {
   return counter
 }
 
-export { storageInit, getData, setData, dataCount, finishCount }
+function generateId(): number {
+  let id: number = 0
+  const curData: any = getData()
+
+  for (let key in curData) {
+    id += +curData[key].length
+  }
+  return id
+}
+
+export { storageInit, getData, setData, dataCount, finishCount, generateId }
 /*{
       id: '0',
       title: 'Hello finish',

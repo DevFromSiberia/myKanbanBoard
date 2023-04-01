@@ -17,6 +17,7 @@
     margin-bottom: 15px;
     scroll-behavior: smooth;
     .task {
+      display: block;
       width: 100%;
       background-color: $taskBg-color;
       padding: 8px;
@@ -33,6 +34,20 @@
         transition: background-color ease-in-out 0.1s;
         background-color: #5e6c8425;
       }
+    }
+
+    .inputTask {
+      width: 100%;
+      background-color: $taskBg-color;
+      padding: 8px;
+      font-family: 'Roboto-Regular';
+      font-size: 18px;
+      color: $secondText-color;
+      border-radius: 5px;
+      margin-bottom: 15px;
+
+      cursor: text;
+      transition: background-color ease-in-out 0.1s;
     }
 
     &::-webkit-scrollbar {
