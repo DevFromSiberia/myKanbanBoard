@@ -1,8 +1,10 @@
 import { useState, useEffect } from 'react'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 
+//pages
 import { Sections } from '../../pages/Sections/Sections'
 import { Details } from '../../pages/Details/Details'
+//
 import { getData, setData, dataCount, finishCount } from '../../data/data'
 import { UserBlock } from '../UserBlock/UserBlock'
 import { task, data } from '../../types'
@@ -39,12 +41,7 @@ function App() {
     {
       path: '/',
       element: (
-        <Sections
-          appData={appData}
-          countTasks={countTasks}
-          addTask={addTask}
-          removeTask={removeTask}
-        />
+        <Sections appData={appData} addTask={addTask} removeTask={removeTask} />
       ),
     },
     {

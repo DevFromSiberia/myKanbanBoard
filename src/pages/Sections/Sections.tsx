@@ -3,16 +3,14 @@ import { data } from '../../types'
 
 interface Props {
   appData: data
-  countTasks: number
   addTask: Function
   removeTask: Function
 }
 
-function Sections({ appData, countTasks, addTask, removeTask }: Props) {
+function Sections({ appData, addTask, removeTask }: Props) {
   return (
     <div className="kanbanBoard__sections">
       <Section
-        countTasks={countTasks}
         title={'Backlog'}
         tasks={appData.backlog}
         prevTasks={[]}
@@ -23,7 +21,6 @@ function Sections({ appData, countTasks, addTask, removeTask }: Props) {
         removeTask={removeTask}
       />
       <Section
-        countTasks={countTasks}
         title={'Ready'}
         tasks={appData.ready}
         prevTasks={appData.backlog}
@@ -34,7 +31,6 @@ function Sections({ appData, countTasks, addTask, removeTask }: Props) {
         removeTask={removeTask}
       />
       <Section
-        countTasks={countTasks}
         title={'In Progress'}
         tasks={appData.progress}
         prevTasks={appData.ready}
@@ -45,7 +41,6 @@ function Sections({ appData, countTasks, addTask, removeTask }: Props) {
         removeTask={removeTask}
       />
       <Section
-        countTasks={countTasks}
         title={'Finished'}
         tasks={appData.finish}
         prevTasks={appData.progress}

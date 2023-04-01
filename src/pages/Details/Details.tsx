@@ -31,6 +31,7 @@ function Details() {
 
       <div className="buttonBlock">
         <Link
+          className={editMode ? 'completeBtn' : 'editBtn'}
           to={window.location.pathname}
           onClick={() => {
             if (editMode) {
@@ -45,9 +46,8 @@ function Details() {
             }
             setEditMode(!editMode)
           }}
-          className={editMode ? 'cancelBtn' : 'editBtn'}
         >
-          <p>{editMode ? 'Cancel' : 'Edit'}</p>
+          <p>{editMode ? 'Complete' : 'Edit'}</p>
           {editMode ? (
             <svg
               width="20"

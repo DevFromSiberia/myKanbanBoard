@@ -38,7 +38,7 @@ function dataCount(): number {
 
 function finishCount(): number {
   let counter: number = 0
-  const curData: any = getData()
+  const curData: data = getData()
 
   counter += +curData['finish'].length
 
@@ -47,7 +47,7 @@ function finishCount(): number {
 
 function generateId(): number {
   let id: number = 0
-  const curData: any = getData()
+  const curData: data = getData()
 
   for (let key in curData) {
     id += +curData[key].length
@@ -56,8 +56,3 @@ function generateId(): number {
 }
 
 export { storageInit, getData, setData, dataCount, finishCount, generateId }
-/*{
-      id: '0',
-      title: 'Hello finish',
-      descr: 'Write Hello World',
-    },*/

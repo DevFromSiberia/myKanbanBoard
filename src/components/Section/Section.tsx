@@ -5,7 +5,6 @@ import { generateId } from '../../data/data'
 import { CustomSelect } from '../CustomSelect/CustomSelect'
 
 interface Props {
-  countTasks: number
   abilityAddTask: boolean
   title: string
   tasks: task[]
@@ -17,7 +16,6 @@ interface Props {
 }
 
 function Section({
-  countTasks,
   tasks,
   prevTasks,
   title,

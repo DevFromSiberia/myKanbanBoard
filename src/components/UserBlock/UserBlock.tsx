@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import userAva from '../../assets/img/userAva.png'
+
 function UserBlock() {
   const [open, setOpen] = useState(false)
   return (
