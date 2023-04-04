@@ -7,30 +7,12 @@ import { Details } from '../../pages/Details/Details'
 //
 import { getData, setData, dataCount, finishCount } from '../../data/data'
 import { UserBlock } from '../UserBlock/UserBlock'
-import { task, data } from '../../types'
+import { data } from '../../types'
 
 function App() {
   const [appData, setAppData] = useState(getData())
   const [countTasks, setCountTasks] = useState(dataCount()) // total tasks
   const [countTasksFinish, setCountTasksFinish] = useState(finishCount()) // finish tasks
-
-  const addTask = (task: task, mode: string) => {
-    const curSection: task[] = appData[mode]
-    curSection.push(task)
-    setData(appData)
-    setAppData(getData())
-  }
-
-  const removeTask = (task: task, mode: string) => {
-    const curSection: task[] = appData[mode]
-    curSection.forEach(
-      (removedTask, index) =>
-        task.id === removedTask.id && curSection.splice(index, 1)
-    )
-    setData(appData)
-    setAppData(getData())
-  }
-
   // Change of tasks count
   useEffect(() => {
     setCountTasks(dataCount())
@@ -40,9 +22,7 @@ function App() {
   const router = createBrowserRouter([
     {
       path: '/',
-      element: (
-        <Sections appData={appData} addTask={addTask} removeTask={removeTask} />
-      ),
+      element: <Sections appData={appData} setAppData={setAppData} />,
     },
     {
       path: 'details/:mode/:id',

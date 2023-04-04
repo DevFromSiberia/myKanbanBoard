@@ -1,33 +1,51 @@
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
-import { task } from '../../types'
+import { task, data } from '../../types'
 import { generateId } from '../../data/data'
 import { CustomSelect } from '../CustomSelect/CustomSelect'
+import { setData, getData } from '../../data/data'
 
 interface Props {
+  appData: data
+  setAppData: Function
   abilityAddTask: boolean
   title: string
   tasks: task[]
   mode: string
   prevMode: string
-  addTask: Function
-  removeTask: Function
   prevTasks: task[]
 }
 
 function Section({
+  appData,
+  setAppData,
   tasks,
   prevTasks,
   title,
   abilityAddTask,
   mode,
   prevMode,
-  addTask,
-  removeTask,
 }: Props) {
   const [stateSection, setStateSection] = useState(0) //1-input, 2-select
   const [stateInput, setStateInput] = useState('')
   const [stateBtn, setStateBtn] = useState(false) // false - addCard, true - submit
+
+  const addTask = (task: task, mode: string) => {
+    const curSection: task[] = appData[mode]
+    curSection.push(task)
+    setData(appData)
+    setAppData(getData())
+  }
+
+  const removeTask = (task: task, mode: string) => {
+    const curSection: task[] = appData[mode]
+    curSection.forEach(
+      (removedTask, index) =>
+        task.id === removedTask.id && curSection.splice(index, 1)
+    )
+    setData(appData)
+    setAppData(getData())
+  }
 
   useEffect(() => {
     stateInput !== '' ? setStateBtn(true) : setStateBtn(false)
@@ -73,6 +91,7 @@ function Section({
       <div className="tasks">
         {tasks.map((task) => (
           <Link
+            data-testid={`${mode}-task`}
             to={`details/${mode}/${task.id}`}
             key={task.id}
             className="task"
@@ -83,6 +102,7 @@ function Section({
 
         {stateSection === 1 ? (
           <input
+            data-testid={`${mode}-input`}
             onChange={(e) => setStateInput(e.target.value)}
             className="inputTask"
             type="text"
@@ -103,6 +123,7 @@ function Section({
       {stateSection ? (
         <>
           <button
+            data-testid={`${mode}-button`}
             disabled={!abilityAddTask}
             onClick={stateBtn ? onClickSubmitBtn : onClickAddCard}
             className={stateBtn ? 'submitBtn' : 'addBtn'}
@@ -131,6 +152,7 @@ function Section({
         </>
       ) : (
         <button
+          data-testid={`${mode}-button`}
           disabled={!abilityAddTask}
           onClick={onClickAddCard}
           className="addBtn"
