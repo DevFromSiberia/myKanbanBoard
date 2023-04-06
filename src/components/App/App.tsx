@@ -10,7 +10,7 @@ import { UserBlock } from '../UserBlock/UserBlock'
 import { data } from '../../types'
 
 function App() {
-  const [appData, setAppData] = useState(getData())
+  const [appData, setAppData] = useState(getData()) // Download data to App
   const [countTasks, setCountTasks] = useState(dataCount()) // total tasks
   const [countTasksFinish, setCountTasksFinish] = useState(finishCount()) // finish tasks
   // Change of tasks count

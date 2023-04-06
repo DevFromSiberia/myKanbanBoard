@@ -42,6 +42,7 @@ function CustomSelect({ tasks, onChoice }: Props) {
       onClick={() => setExpand(!expand)}
       className="customSelect"
       style={styleCustomSelect}
+      data-testid="customSelect"
     >
       <div ref={refCustomSelect} className="wrapper">
         <div ref={refCustomSelectActive} className="customSelect__active">
@@ -63,6 +64,7 @@ function CustomSelect({ tasks, onChoice }: Props) {
         <div className="customSelect__options">
           {tasks.map((task) => (
             <div
+              data-testid="customSelectOption"
               key={task.id}
               onClick={() => {
                 setActiveChoice(task.title)

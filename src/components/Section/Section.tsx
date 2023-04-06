@@ -23,7 +23,7 @@ function Section({
   prevTasks,
   title,
   abilityAddTask,
-  mode,
+  mode, // backlog, ready, progress, or finished
   prevMode,
 }: Props) {
   const [stateSection, setStateSection] = useState(0) //1-input, 2-select
